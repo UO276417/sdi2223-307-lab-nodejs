@@ -50,5 +50,7 @@ module.exports = function (app, usersRepository) {
     res.send("El usuario se ha desconectado correctamente");
   })
 
+
+
 }
 

@@ -42,7 +42,9 @@ const userAudiosRouter = require('./routes/userAudiosRouter');
 app.use("/songs/add",userSessionRouter);
 app.use("/publications",userSessionRouter);
 app.use("/audios/",userAudiosRouter);
-app.use("/shop/",userSessionRouter)
+app.use("/shop/",userSessionRouter);
+
+
 
 
 let songsRepository = require("./repositories/songsRepository.js");
@@ -51,10 +53,16 @@ songsRepository.init(app, MongoClient);
 const usersRepository = require("./repositories/usersRepository.js");
 usersRepository.init(app, MongoClient);
 
+const commentsRepository = require("./repositories/commentsRepository.js");
+commentsRepository.init(app, MongoClient);
+
+
 
 require("./routes/users.js")(app, usersRepository);
-require("./routes/songs.js")(app, songsRepository);
+require("./routes/songs.js")(app, songsRepository, commentsRepository);
 require("./routes/authors.js")(app);
+require("./routes/comments.js")(app, commentsRepository);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
